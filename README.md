@@ -30,7 +30,9 @@ Check out this [blog post](https://medium.com/@Jessepeplinski/connecting-to-tcgp
 `python3 app.py`
 
 ### Example run
-TODO: Include a gif here of running the program from the command line
+[![asciicast](https://asciinema.org/a/143890.png)](https://asciinema.org/a/143890)
+
+* I created this fancy GIF with [asciinema](asciinema.org). `brew install asciinema` and `asciinema rec`
 
 ### Future implementation
 
