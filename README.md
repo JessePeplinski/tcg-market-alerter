@@ -2,7 +2,7 @@
 
 An attempt to play around with TCG's market prices.
 
-This app saves a copy of the specified product as a local JSON file, and checks every 5 seconds if there is a change in the market value.
+This app saves a copy of the specified product as a local JSON file, and checks every 5 seconds if there is a change in the market value. If there is, an alert is displayed and the user is emailed of the change.
 
 ## Getting Started
 
@@ -34,19 +34,18 @@ Check out this [blog post](https://medium.com/@Jessepeplinski/connecting-to-tcgp
 
 * I created this fancy GIF with [asciinema](asciinema.org). `brew install asciinema` and `asciinema rec`
 
-### Future implementation
+### Future Implementation
 
 Check out the planned work in the issues.
 
 At a high level:
 
 1. Entry of multiple product ID's
-2. Send email alerts out on change of value with mailgun
-3. Create front-end with Django or Flask
+2. Create front-end with Django or Flask
     1. Subscribe to cards
     2. Subscribed cards view
     3. All cards view
-4. Display low market value and high market value
+3. Display low market value and high market value
 
 ## Authors
 
