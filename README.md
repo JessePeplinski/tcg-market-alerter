@@ -8,6 +8,10 @@ This app saves a copy of the specified product as a local JSON file, and checks 
 
 These instructions will get you a copy of the project up and running on your local machine for development.
 
+### API's Used
+1. TCGPlayer
+2. Mailgun
+
 ### Initial Setup
 You'll need to follow the instructions [here](https://docs.tcgplayer.com/docs/getting-started) to get your own BEARER token and replace it within `app.py` in the `getRequest()` function.
 
@@ -36,16 +40,7 @@ Check out this [blog post](https://medium.com/@Jessepeplinski/connecting-to-tcgp
 
 ### Future Implementation
 
-Check out the planned work in the issues.
-
-At a high level:
-
-1. Entry of multiple product ID's
-2. Create front-end with Django or Flask
-    1. Subscribe to cards
-    2. Subscribed cards view
-    3. All cards view
-3. Display low market value and high market value
+Check out the planned work in the [issues](https://github.com/JessePeplinski/tcg-scraper/issues).
 
 ## Authors
 
