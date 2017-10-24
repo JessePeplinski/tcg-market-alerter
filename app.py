@@ -11,7 +11,7 @@ def getRequest(endpoint):
 
     headers = {
         "Accept": "application/json",
-        "Authorization": "bearer YOUR_BEARER_TOKEN_HERE"
+        "Authorization": "bearer 7TUFM5BG2ikyTr5RQzNvFm3ALKC_7PUzGNcybO91WWny93bEzmmeeze0iXJNSisEno42aN2CKJIQOBr52ZeUeyFABfo1lq0aQDhCMJfsMFmC_l-FRCTeIN1DpqOHvkIgLmq5hlvUBk-q11VzNQZzA8L1QY4JoAGXEnXa-SojXw_2elYfzgpstXxtph9FcStOPX4YX0L1uDNPQAbO7gYLcbiD1d7qIoIA6wK71TO_WoDa10v6z-m1tNmYmhw98odThrSbkxhRJD9ktSAGOX8IgelS6TnkrsUGkzgxZjtGcMu_YnW_391vR7zJWwIPY-8LFc8Ueg"
     }
 
     response = requests.get(endpoint, headers=headers)
@@ -70,7 +70,7 @@ def writePricesToFile(productID):
         raise
 
 
-def checkPrices(productID):
+def checkPrices(productID, email):
     """
     Compare the API endpoint request with the stored file, prices.json, and check if the prices are different
     """
@@ -92,7 +92,6 @@ def checkPrices(productID):
     localMarketPrice = local_response["results"][0]["marketPrice"] # get the marketPrice of the 0th thing in the array from the file 
     serverMarketPrice = server_response["results"][0]["marketPrice"] # get the marketPrice of the 0th thing in the array from the file
 
-
     print('Server Price is {}' .format(serverMarketPrice))
     print('Local Price is {}' .format(localMarketPrice))
 
@@ -103,14 +102,20 @@ def checkPrices(productID):
     difference = abs(localMarketPrice - serverMarketPrice)
 
     if localMarketPrice > serverMarketPrice:
-        print ('ALERT: Local market price is higher than the server market price by ', difference, ' ! Now might be a good time to sell')
+        message = 'ALERT: Local market price is higher than the server market price by ', difference, ' ! Now might be a good time to sell'
+        print (message)
+        sendEmail('Local market price is higher than the server market price!', message, email)
+
         # updateFile = input("Would you like to update the local file from the server now (recommended)? (y/n)")
         # if updateFile == 'y':
         #     writePricesToFile(productID)
         #     writeProductsToFile()
 
     elif localMarketPrice < serverMarketPrice:
-        print ('ALERT: Local market price is lower than the server market price by ', difference, ' ! Now might be a good time to buy')
+        message = 'ALERT: Local market price is lower than the server market price by ', difference, ' ! Now might be a good time to buy'
+        print(message)
+        sendEmail('Local market price is lower than the server market price!', message, email)
+
         # updateFile = input("Would you like to update the local file from the server now (recommended)? (y/n)")
         # if updateFile == 'y':
         #     writePricesToFile(productID)
@@ -119,9 +124,20 @@ def checkPrices(productID):
     elif localMarketPrice == serverMarketPrice:
         print("Prices are the same.. nothing interesting happening")
 
-def sendEmail():
-    # Send an email to the user when a price changes
-    pass
+def sendEmail(subject, message, email):
+    key = 'key-ec1cc22400e9fa7af980b01329d5d1c2' # this should be private somewhere.. 
+    sandbox = 'sandboxfe67e9fe7a4742e4ad0f14195632c088.mailgun.org' # this too probably
+
+    # TODO: use newer API
+    request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(sandbox)
+
+    # Send an email 
+    request = requests.post(request_url, auth=('api', key), data={
+        'from': 'alert@tcgplayer.com',
+        'to': email,
+        'subject': subject,
+        'text': message
+    })
 
 def printProductsFromServer():
     """
@@ -138,11 +154,6 @@ def printProductsFromServer():
         name = item["productName"]
         print('Product Name' , name , " | Product ID: ", id)
 
-# getRequest(getProductPrice(95))
-# storeInitialProducts()
-# getRequest(getProducts())
-# getRequest(getProductPrice(95))
-
 def main():
    
     printProductsFromServer()
@@ -153,16 +164,14 @@ def main():
     writePricesToFile(productID)
     writeProductsToFile()
 
-    # TODO: Store email in a global variable
-    # print('Cool, now what is your email?')
-    # email = input("Great! Now, what is your email we should send price alerts to?")
+    email = input("Great! Now, what is your email we should send price alerts to?" )
 
-    print('Great! Every 5 seconds, we check for updates on the prices. We will let you know when ' , productID, 'changes. ')
-    print('Eventually, we will be emailing you alerts when the prices change and providing a nice front-end app.')
+    print('Great! Every 5 seconds, we check for updates on the prices. We will let you know when product ID ' , productID, 'changes. ')
+    print('Eventually, we will provide you a front-end app.')
 
     while True:
         print("Checking Prices...")
-        checkPrices(productID)
+        checkPrices(productID, email)
         sleep(5)
 
 if __name__ == "__main__":
