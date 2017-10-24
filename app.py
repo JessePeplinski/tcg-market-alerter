@@ -11,7 +11,7 @@ def getRequest(endpoint):
 
     headers = {
         "Accept": "application/json",
-        "Authorization": "bearer 7TUFM5BG2ikyTr5RQzNvFm3ALKC_7PUzGNcybO91WWny93bEzmmeeze0iXJNSisEno42aN2CKJIQOBr52ZeUeyFABfo1lq0aQDhCMJfsMFmC_l-FRCTeIN1DpqOHvkIgLmq5hlvUBk-q11VzNQZzA8L1QY4JoAGXEnXa-SojXw_2elYfzgpstXxtph9FcStOPX4YX0L1uDNPQAbO7gYLcbiD1d7qIoIA6wK71TO_WoDa10v6z-m1tNmYmhw98odThrSbkxhRJD9ktSAGOX8IgelS6TnkrsUGkzgxZjtGcMu_YnW_391vR7zJWwIPY-8LFc8Ueg"
+        "Authorization": "bearer YOUR_BEARER_TOKEN_HERE"
     }
 
     response = requests.get(endpoint, headers=headers)
