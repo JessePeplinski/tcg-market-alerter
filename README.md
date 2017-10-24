@@ -21,7 +21,7 @@ You'll need to follow the instructions [here](https://docs.tcgplayer.com/docs/ge
 ### Recommended software
 `postman`
 
-Check out this (blog post)[https://medium.com/@Jessepeplinski/connecting-to-tcgplayers-api-with-postman-ce459d809a54] I wrote on getting the TCG API setup with postman.
+Check out this [blog post](https://medium.com/@Jessepeplinski/connecting-to-tcgplayers-api-with-postman-ce459d809a54) I wrote on getting the TCG API setup with postman.
 
 ### Required packages
 `requests, json`
